@@ -13,12 +13,19 @@ function App() {
   const [workspaceItems, setWorkspaceItems] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
 
-  const addItemToWorkspace = (itemName) => {
+  // Apparatus list with dropdown functionality
+  const apparatusList = [
+    { id: 1, name: "Beaker" },
+    { id: 2, name: "Flask" },
+    { id: 3, name: "Test Tube" }
+  ];
+
+  const addItemToWorkspace = (item) => {
     const newItem = {
       id: Date.now(),
-      name: itemName,
+      name: item.name,
       properties: {
-        position: { x: 50, y: 50 } // default position
+        position: { x: 50, y: 50 } // Default position
       }
     };
     setWorkspaceItems([...workspaceItems, newItem]);
@@ -36,7 +43,12 @@ function App() {
     <div className="App">
       <TopBar experimentName={experimentName} currentStep={currentStep} />
       <div className="main-container">
-        <ChemistryWorkspace items={workspaceItems} onSelectItem={selectItem} />
+        <ChemistryWorkspace 
+          items={workspaceItems} 
+          onSelectItem={selectItem} 
+          apparatusList={apparatusList} 
+          onAddToWorkspace={addItemToWorkspace} 
+        />
         <SideBar addItem={addItemToWorkspace} />
       </div>
       <SimulationControls 
@@ -51,4 +63,3 @@ function App() {
 }
 
 export default App;
-

@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import './SideBar.css';
 
-const SideBar = () => {
-  // Local state to show/hide dropdown contents for apparatus and chemicals
+const SideBar = ({ addItem }) => {
   const [showApparatus, setShowApparatus] = useState(false);
   const [showChemicals, setShowChemicals] = useState(false);
 
   // Static lists for apparatus and chemicals.
-  // Update the imageSrc values with actual URLs or local paths as needed.
   const apparatusList = [
     { name: "Beaker", imageSrc: "https://m.media-amazon.com/images/I/61bEbTCHV5L._AC_UF1000,1000_QL80_.jpg" },
     { name: "Flask", imageSrc: "https://www.sigmaaldrich.com/deepweb/assets/sigmaaldrich/product/images/207/642/d8e1bdca-bbcc-4545-a7ca-d30498020451/640/d8e1bdca-bbcc-4545-a7ca-d30498020451.jpg" },
@@ -38,6 +36,9 @@ const SideBar = () => {
               <div key={index} className="material-item">
                 <img src={item.imageSrc} alt={item.name} width="50" height="50" />
                 <span>{item.name}</span>
+                <button onClick={() => addItem(item)}>
+                  Add to Workspace
+                </button>
               </div>
             ))}
           </div>
@@ -58,6 +59,7 @@ const SideBar = () => {
               <div key={index} className="material-item">
                 <img src={item.imageSrc} alt={item.name} width="50" height="50" />
                 <span>{item.name}</span>
+                {/* You can add an "Add to Workspace" button for chemicals if desired */}
               </div>
             ))}
           </div>

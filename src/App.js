@@ -24,6 +24,8 @@ function App() {
     const newItem = {
       id: Date.now(),
       name: item.name,
+      // ADD imageSrc so the workspace can display the actual image
+      imageSrc: item.imageSrc,
       properties: {
         position: { x: 50, y: 50 } // Default position
       }

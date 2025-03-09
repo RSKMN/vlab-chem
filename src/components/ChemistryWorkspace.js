@@ -1,14 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './ChemistryWorkspace.css';
 
-const ChemistryWorkspace = ({ items, onAddToWorkspace }) => {
-  const [dropdownVisible, setDropdownVisible] = useState(null);
-
-  // Toggle dropdown visibility
-  const handleItemClick = (id) => {
-    setDropdownVisible(dropdownVisible === id ? null : id);
-  };
-
+const ChemistryWorkspace = ({ items, onSelectItem }) => {
   return (
     <div className="chem-workspace">
       <div className="workspace-header">
@@ -19,16 +12,18 @@ const ChemistryWorkspace = ({ items, onAddToWorkspace }) => {
       <div className="lab-bench">
         <div className="lab-items">
           {items.map((item) => (
-            <div key={item.id} className="lab-item">
-              <div onClick={() => handleItemClick(item.id)}>
-                {item.name}
-              </div>
-              
-              {dropdownVisible === item.id && (
-                <div className="dropdown-menu">
-                  <button onClick={() => onAddToWorkspace(item)}>Add to Workspace</button>
-                </div>
-              )}
+            <div 
+              key={item.id} 
+              className="lab-item"
+              onClick={() => onSelectItem(item)}
+            >
+              {/* Show the apparatus image instead of text */}
+              <img 
+                src={item.imageSrc} 
+                alt={item.name} 
+                width="50" 
+                height="50" 
+              />
             </div>
           ))}
         </div>

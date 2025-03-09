@@ -1,0 +1,49 @@
+.chem-workspace {
+  flex: 1;
+  /* Use the relative path to the image in src/assets/images */
+  background: url('../assets/images/lab-background.jpg') no-repeat center center fixed;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  position: relative;
+}
+.lab-bench {
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 1px solid #ccc;
+  width: 90%;
+  height: 80%;
+  padding: 20px;
+  border-radius: 8px;
+  position: relative;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  overflow: auto;
+}
+
+.lab-bench h2 {
+  margin-bottom: 10px;
+}
+
+.lab-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.lab-item {
+  background-color: #e0e0e0;
+  padding: 10px;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  cursor: pointer;
+  min-width: 80px;
+  text-align: center;
+  transition: background-color 0.2s;
+}
+
+.lab-item:hover {
+  background-color: #d0d0d0;
+}
+

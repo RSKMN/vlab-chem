@@ -1,0 +1,14 @@
+.simulation-controls {
+  margin: 10px 0;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
+.simulation-controls button {
+  padding: 8px 12px;
+}
+.status {
+  font-weight: bold;
+}
+

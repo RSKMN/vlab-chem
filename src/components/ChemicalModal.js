@@ -1,24 +1,21 @@
 import React, { useState } from 'react';
 import './ChemicalModal.css';
 
-const ChemicalModal = ({ workspaceItems, onClose, onAddChemical }) => {
+const ChemicalModal = ({ workspaceItems, chemical, onClose, onSubmit }) => {
   const [selectedApparatusId, setSelectedApparatusId] = useState("");
-  const [chemical, setChemical] = useState("");
   const [amount, setAmount] = useState("");
-  const [color, setColor] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (selectedApparatusId && chemical) {
-      onAddChemical(parseInt(selectedApparatusId), chemical, amount, color);
-      onClose();
+    if (selectedApparatusId && amount) {
+      onSubmit(selectedApparatusId, amount);
     }
   };
 
   return (
     <div className="modal-overlay">
       <div className="chemical-modal">
-        <h3>Add Chemical to Apparatus</h3>
+        <h3>Add {chemical.name}</h3>
         <form onSubmit={handleSubmit}>
           <label>
             Select Apparatus:
@@ -27,20 +24,14 @@ const ChemicalModal = ({ workspaceItems, onClose, onAddChemical }) => {
               onChange={(e) => setSelectedApparatusId(e.target.value)}
             >
               <option value="">--Select--</option>
-              {workspaceItems.map((item) => (
-                <option key={item.id} value={item.id}>
-                  {item.name}
-                </option>
-              ))}
+              {workspaceItems
+                .filter(item => item.type === "apparatus")
+                .map((item) => (
+                  <option key={item.id} value={item.id}>
+                    {item.name}
+                  </option>
+                ))}
             </select>
-          </label>
-          <label>
-            Chemical:
-            <input
-              type="text"
-              value={chemical}
-              onChange={(e) => setChemical(e.target.value)}
-            />
           </label>
           <label>
             Amount:
@@ -48,14 +39,6 @@ const ChemicalModal = ({ workspaceItems, onClose, onAddChemical }) => {
               type="number"
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
-            />
-          </label>
-          <label>
-            Color:
-            <input
-              type="text"
-              value={color}
-              onChange={(e) => setColor(e.target.value)}
             />
           </label>
           <div className="modal-buttons">

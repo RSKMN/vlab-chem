@@ -1,0 +1,11 @@
+.step-controls {
+    display: flex;
+    align-items: center;
+    margin: 10px;
+    gap: 10px;
+  }
+  
+  .step-info {
+    font-weight: bold;
+  }
+  

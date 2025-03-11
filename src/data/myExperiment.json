@@ -1,0 +1,36 @@
+{
+    "experimentId": "exp-001",
+    "experimentName": "Simple Titration",
+    "description": "Acid-base titration experiment.",
+    "steps": [
+      {
+        "action": "bringApparatus",
+        "name": "Beaker",
+        "countLabel": 1
+      },
+      {
+        "action": "bringApparatus",
+        "name": "Flask",
+        "countLabel": 1
+      },
+      {
+        "action": "addChemical",
+        "apparatusName": "Beaker-1",
+        "chemical": "HCl",
+        "amount": 50,
+        "unit": "ml"
+      },
+      {
+        "action": "addChemical",
+        "apparatusName": "Beaker-1",
+        "chemical": "NaOH",
+        "amount": 50,
+        "unit": "ml"
+      },
+      {
+        "action": "mix",
+        "apparatusName": "Beaker-1"
+      }
+    ]
+  }
+  

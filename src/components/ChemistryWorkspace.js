@@ -30,10 +30,9 @@ const ChemistryWorkspace = ({ items, onSelectItem, removeItem }) => {
   return (
     <div className="chem-workspace">
       <div className="workspace-header">
-        <h2>Chemistry Lab Workspace</h2>
-        <p>Right-click an apparatus for details.</p>
+        <h2>Chemistry Lab Workspace (Simulation Mode)</h2>
+        <p>Use Previous/Next to step through the experiment.</p>
       </div>
-
       <div className="lab-bench">
         <div className="lab-items">
           {items.map((item) => (
@@ -49,7 +48,6 @@ const ChemistryWorkspace = ({ items, onSelectItem, removeItem }) => {
           ))}
         </div>
       </div>
-
       {contextMenu && (
         <div
           className="context-menu"
@@ -58,16 +56,14 @@ const ChemistryWorkspace = ({ items, onSelectItem, removeItem }) => {
           <div>
             <strong>{contextMenu.item.name}</strong>
           </div>
-          {contextMenu.item.type === "chemical" ? (
+          {contextMenu.item.properties.contents.chemical ? (
             <>
               <div>
                 Chemical: {contextMenu.item.properties.contents.chemical}
               </div>
               <div>
                 Amount: {contextMenu.item.properties.contents.amount}
-              </div>
-              <div>
-                Color: {contextMenu.item.properties.contents.color}
+                {contextMenu.item.properties.contents.unit}
               </div>
             </>
           ) : (

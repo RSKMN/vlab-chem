@@ -1,0 +1,23 @@
+.reaction-display {
+    background-color: #f1f1f1;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+  }
+  
+  .reaction-display h3 {
+    margin: 0;
+    text-align: center;
+  }
+  
+  .reaction-display ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .reaction-display li {
+    margin: 5px 0;
+  }
+  

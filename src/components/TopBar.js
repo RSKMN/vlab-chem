@@ -1,17 +1,15 @@
 import React from 'react';
 import './TopBar.css';
 
-const TopBar = ({ experimentName, currentStep }) => {
+const TopBar = ({ experimentName = "No Experiment", currentStep = { number: 0, name: "Not Defined" } }) => {
   return (
     <div className="top-bar">
-      <div className="experiment-name">Experiment Name: {experimentName}</div>
+      <h1>{experimentName}</h1>
       <div className="step-info">
-        <span className="step-number">Step {currentStep.number}</span>
-        <span className="step-name">{currentStep.name}</span>
+        <span>Step {currentStep.number}: {currentStep.name}</span>
       </div>
     </div>
   );
 };
 
 export default TopBar;
-

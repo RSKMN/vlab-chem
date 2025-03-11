@@ -1,0 +1,217 @@
+{
+    "experiments": [
+      {
+        "experimentId": "exp-001",
+        "experimentName": "Acid-Base Reaction",
+        "description": "Mix HCl and NaOH in a beaker to form salt water.",
+        "steps": [
+          {
+            "action": "bringApparatus",
+            "name": "Place Beaker-1 into workspace",
+            "appliance": "Beaker",
+            "countLabel": 1,
+            "color": "#888"
+          },
+          {
+            "action": "addChemical",
+            "name": "Add 50 ml of HCl to Beaker-1",
+            "apparatusName": "Beaker-1",
+            "chemical": "HCl",
+            "amount": 50,
+            "unit": "ml",
+            "color": "#ff4444"
+          },
+          {
+            "action": "addChemical",
+            "name": "Add 50 ml of NaOH to Beaker-1",
+            "apparatusName": "Beaker-1",
+            "chemical": "NaOH",
+            "amount": 50,
+            "unit": "ml",
+            "color": "#44ff44"
+          },
+          {
+            "action": "mix",
+            "name": "Mix contents in Beaker-1 to produce NaCl + H₂O",
+            "apparatusName": "Beaker-1",
+            "color": "#0000ff"
+          }
+        ]
+      },
+      {
+        "experimentId": "exp-002",
+        "experimentName": "Heating Reaction",
+        "description": "Heat a flask containing a reaction mixture.",
+        "steps": [
+          {
+            "action": "bringApparatus",
+            "name": "Place Flask-1 into workspace",
+            "appliance": "Flask",
+            "countLabel": 1,
+            "color": "#888"
+          },
+          {
+            "action": "addChemical",
+            "name": "Add 30 ml of Acetone to Flask-1",
+            "apparatusName": "Flask-1",
+            "chemical": "Acetone",
+            "amount": 30,
+            "unit": "ml",
+            "color": "#ff00ff"
+          },
+          {
+            "action": "addChemical",
+            "name": "Add 70 ml of Water to Flask-1",
+            "apparatusName": "Flask-1",
+            "chemical": "Water",
+            "amount": 70,
+            "unit": "ml",
+            "color": "#0000ff"
+          },
+          {
+            "action": "mix",
+            "name": "Mix contents in Flask-1 to form a uniform solution",
+            "apparatusName": "Flask-1",
+            "color": "#ffff00"
+          }
+        ]
+      },
+      {
+        "experimentId": "exp-003",
+        "experimentName": "Acid-Base Titration & Reaction",
+        "description": "A multi-step experiment involving acid-base reaction and mixing.",
+        "steps": [
+          {
+            "action": "bringApparatus",
+            "name": "Place Beaker-1 into workspace",
+            "appliance": "Beaker",
+            "countLabel": 1,
+            "color": "#ff4444"
+          },
+          {
+            "action": "addChemical",
+            "name": "Add 50 ml of HCl to Beaker-1",
+            "apparatusName": "Beaker-1",
+            "chemical": "HCl",
+            "amount": 50,
+            "unit": "ml",
+            "color": "#ff4444"
+          },
+          {
+            "action": "bringApparatus",
+            "name": "Place Flask-1 into workspace",
+            "appliance": "Flask",
+            "countLabel": 1,
+            "color": "#44ff44"
+          },
+          {
+            "action": "addChemical",
+            "name": "Add 50 ml of NaOH to Beaker-1",
+            "apparatusName": "Beaker-1",
+            "chemical": "NaOH",
+            "amount": 50,
+            "unit": "ml",
+            "color": "#44ff44"
+          },
+          {
+            "action": "mix",
+            "name": "Mix contents in Beaker-1 to produce NaCl + H₂O",
+            "apparatusName": "Beaker-1",
+            "color": "#0000ff"
+          },
+          {
+            "action": "bringApparatus",
+            "name": "Place Bunsen Burner-1 into workspace",
+            "appliance": "Bunsen Burner",
+            "countLabel": 1,
+            "color": "#ffa500"
+          },
+          {
+            "action": "addChemical",
+            "name": "Add 30 ml of NaCl to Flask-1",
+            "apparatusName": "Flask-1",
+            "chemical": "NaCl",
+            "amount": 30,
+            "unit": "ml",
+            "color": "#cccccc"
+          },
+          {
+            "action": "mix",
+            "name": "Mix contents in Flask-1 to complete the reaction",
+            "apparatusName": "Flask-1",
+            "color": "#ff00ff"
+          }
+        ]
+      },
+      {
+        "experimentId": "exp-004",
+        "experimentName": "Complex Reaction Example",
+        "description": "A complex experiment with multiple apparatus and chemical additions.",
+        "steps": [
+          {
+            "action": "bringApparatus",
+            "name": "Place Beaker-1 into workspace",
+            "appliance": "Beaker",
+            "countLabel": 1,
+            "color": "#d9534f"
+          },
+          {
+            "action": "addChemical",
+            "name": "Add 30 ml of HCl to Beaker-1",
+            "apparatusName": "Beaker-1",
+            "chemical": "HCl",
+            "amount": 30,
+            "unit": "ml",
+            "color": "#d9534f"
+          },
+          {
+            "action": "bringApparatus",
+            "name": "Place Flask-1 into workspace",
+            "appliance": "Flask",
+            "countLabel": 1,
+            "color": "#5cb85c"
+          },
+          {
+            "action": "addChemical",
+            "name": "Add 30 ml of NaOH to Beaker-1",
+            "apparatusName": "Beaker-1",
+            "chemical": "NaOH",
+            "amount": 30,
+            "unit": "ml",
+            "color": "#5cb85c"
+          },
+          {
+            "action": "mix",
+            "name": "Mix contents in Beaker-1 to form reaction product",
+            "apparatusName": "Beaker-1",
+            "color": "#337ab7"
+          },
+          {
+            "action": "bringApparatus",
+            "name": "Place Beaker-2 into workspace",
+            "appliance": "Beaker",
+            "countLabel": 2,
+            "color": "#d9534f"
+          },
+          {
+            "action": "addChemical",
+            "name": "Add 20 ml of NaOH to Beaker-2",
+            "apparatusName": "Beaker-2",
+            "chemical": "NaOH",
+            "amount": 20,
+            "unit": "ml",
+            "color": "#5cb85c"
+          },
+          {
+            "action": "mix",
+            "name": "Mix contents in Beaker-2 to complete the reaction",
+            "apparatusName": "Beaker-2",
+            "color": "#337ab7"
+          }
+        ]
+      }
+    ]
+  }
+  
+
+  

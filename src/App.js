@@ -4,12 +4,13 @@ import TopBar from './components/TopBar';
 import ChemistryWorkspace from './components/ChemistryWorkspace';
 import ReactionDisplay from './components/ReactionDisplay';
 import StepControls from './components/StepControls';
-import experimentData from './data/myExperiment.json';
+import experimentsData from './data/experiments.json';
 
-// Mapping apparatus names to images
+// Mapping for apparatus images
 const apparatusImages = {
   Beaker: "https://m.media-amazon.com/images/I/61bEbTCHV5L._AC_UF1000,1000_QL80_.jpg",
-  Flask: "https://www.sigmaaldrich.com/deepweb/assets/sigmaaldrich/product/images/207/642/d8e1bdca-bbcc-4545-a7ca-d30498020451/640/d8e1bdca-bbcc-4545-a7ca-d30498020451.jpg"
+  Flask: "https://www.sigmaaldrich.com/deepweb/assets/sigmaaldrich/product/images/207/642/d8e1bdca-bbcc-4545-a7ca-d30498020451/640/d8e1bdca-bbcc-4545-a7ca-d30498020451.jpg",
+  "Bunsen Burner": "https://d2cbg94ubxgsnp.cloudfront.net/Pictures/280xAny/7/9/8/127798_classic-kit-200_tcm18-99904.jpg"
 };
 
 function App() {
@@ -17,64 +18,90 @@ function App() {
   const [workspaceItems, setWorkspaceItems] = useState([]);
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const [history, setHistory] = useState([]);
-  const [simulationStatus, setSimulationStatus] = useState("stopped");
+  const [selectedExperimentId, setSelectedExperimentId] = useState("");
 
   useEffect(() => {
-    // Load the experiment JSON on mount
-    setExperiment(experimentData);
-    setCurrentStepIndex(0);
+    // Reset state on mount
     setWorkspaceItems([]);
+    setCurrentStepIndex(0);
     setHistory([]);
   }, []);
 
-  // Apply one step to the workspace
+  // Handle experiment selection from dropdown
+  const handleExperimentSelection = (e) => {
+    const expId = e.target.value;
+    setSelectedExperimentId(expId);
+    const selectedExp = experimentsData.experiments.find(exp => exp.experimentId === expId);
+    setExperiment(selectedExp);
+    setWorkspaceItems([]);
+    setCurrentStepIndex(0);
+    setHistory([]);
+  };
+
+  // Apply a single step to the workspace
   const applyStep = (step) => {
     switch (step.action) {
       case "bringApparatus": {
-        // Construct a unique label: e.g., "Beaker-1"
-        // Here, step.countLabel is provided in the JSON for simplicity.
+        // Create a unique label: e.g. "Beaker-1"
         const labelCount = step.countLabel || 1;
         const apparatusLabel = `${step.name}-${labelCount}`;
         const imageSrc = apparatusImages[step.name] || "https://via.placeholder.com/50";
-
         const newItem = {
           id: Date.now(),
           name: apparatusLabel,
           imageSrc,
           type: "apparatus",
+          chemicals: [],
           properties: {
             position: { x: 50, y: 50 },
-            contents: { chemical: "", amount: 0, unit: "", color: "" }
+            // Use step.color for border color
+            color: step.color || "#aaa"
           }
         };
-        setWorkspaceItems((prev) => [...prev, newItem]);
+        setWorkspaceItems(prev => [...prev, newItem]);
         break;
       }
       case "addChemical": {
-        // Update the apparatus matching step.apparatusName with chemical details
-        setWorkspaceItems((prev) =>
-          prev.map((item) =>
-            item.name === step.apparatusName
-              ? {
-                  ...item,
-                  properties: {
-                    ...item.properties,
-                    contents: {
-                      chemical: step.chemical,
-                      amount: step.amount,
-                      unit: step.unit,
-                      color: "#999" // Default color for chemical
-                    }
-                  }
-                }
-              : item
-          )
+        // Find the matching apparatus and add chemical to its array
+        setWorkspaceItems(prev =>
+          prev.map(item => {
+            if (item.name === step.apparatusName) {
+              const newChem = {
+                name: step.chemical,
+                amount: step.amount,
+                unit: step.unit,
+                color: step.color || "#999"
+              };
+              return {
+                ...item,
+                chemicals: [...item.chemicals, newChem]
+              };
+            }
+            return item;
+          })
         );
         break;
       }
       case "mix": {
+        // For mix, you can transform the contents; for demonstration, we simply log mixing.
+        // Optionally, you can change the chemicals array to reflect a reaction.
         console.log(`Mixing contents in ${step.apparatusName}`);
-        // Additional mix logic or animations can be added here
+        // For example, if in Beaker-1 the chemicals are HCl and NaOH, you might want:
+        setWorkspaceItems(prev =>
+          prev.map(item => {
+            if (item.name === step.apparatusName) {
+              // For demonstration: replace all chemicals with a product reaction
+              return {
+                ...item,
+                chemicals: [
+                  { name: "NaCl", amount: 100, unit: "ml", color: "#ccc" },
+                  { name: "H2O", amount: 100, unit: "ml", color: "#9cf" }
+                ]
+              };
+            }
+            return item;
+          })
+        );
         break;
       }
       default:
@@ -82,7 +109,7 @@ function App() {
     }
   };
 
-  // To revert steps, we store the entire workspace state in history.
+  // Revert to previous workspace state
   const unapplyStep = (index) => {
     const prevState = history[index];
     if (prevState) {
@@ -90,29 +117,47 @@ function App() {
     }
   };
 
-  // Handle Next: apply the step at the current index, then increment.
+  // Next step: store current state, apply next step, then increment index
   const handleNext = () => {
     if (!experiment || !experiment.steps) return;
     if (currentStepIndex >= experiment.steps.length) return;
-    // Save current workspace state in history
-    setHistory((prev) => [...prev, workspaceItems]);
+    setHistory(prev => [...prev, workspaceItems]);
     const step = experiment.steps[currentStepIndex];
     applyStep(step);
-    setCurrentStepIndex((prev) => prev + 1);
+    setCurrentStepIndex(prev => prev + 1);
   };
 
-  // Handle Previous: revert to the previous workspace state.
+  // Previous step: revert to previous state
   const handlePrevious = () => {
     if (currentStepIndex <= 0) return;
     const prevIndex = currentStepIndex - 1;
     unapplyStep(prevIndex);
     setCurrentStepIndex(prevIndex);
-    setHistory((prev) => prev.slice(0, -1));
+    setHistory(prev => prev.slice(0, -1));
   };
+
+  const safeStep = experiment?.steps?.[currentStepIndex - 1] || { number: 0, name: "N/A" };
 
   return (
     <div className="App">
-      <TopBar experimentName={experiment ? experiment.experimentName : "No Experiment Loaded"} currentStep={experiment ? experiment.steps[currentStepIndex - 1] : { number: 0, name: "N/A" }} />
+      <TopBar 
+        experimentName={experiment ? experiment.experimentName : "No Experiment Loaded"}
+        currentStep={safeStep}
+      />
+
+      {/* Experiment selection dropdown */}
+      <div className="experiment-selector">
+        <label htmlFor="experiment-select">Choose an Experiment: </label>
+        <select id="experiment-select" value={selectedExperimentId} onChange={handleExperimentSelection}>
+          <option value="">--Select--</option>
+          {experimentsData.experiments.map(exp => (
+            <option key={exp.experimentId} value={exp.experimentId}>
+              {exp.experimentName}
+            </option>
+          ))}
+        </select>
+      </div>
+
       {experiment && (
         <StepControls
           currentStepIndex={currentStepIndex}
@@ -121,6 +166,7 @@ function App() {
           onNext={handleNext}
         />
       )}
+
       <div className="main-container">
         <ReactionDisplay workspaceItems={workspaceItems} />
         <ChemistryWorkspace 

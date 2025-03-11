@@ -8,9 +8,9 @@ const StepControls = ({ currentStepIndex, totalSteps, onPrev, onNext }) => {
         Previous
       </button>
       <span className="step-info">
-        Step {currentStepIndex + 1} of {totalSteps}
+        Step {currentStepIndex} of {totalSteps}
       </span>
-      <button onClick={onNext} disabled={currentStepIndex >= totalSteps - 1}>
+      <button onClick={onNext} disabled={currentStepIndex >= totalSteps}>
         Next
       </button>
     </div>

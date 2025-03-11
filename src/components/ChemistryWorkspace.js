@@ -31,7 +31,7 @@ const ChemistryWorkspace = ({ items, onSelectItem, removeItem }) => {
     <div className="chem-workspace">
       <div className="workspace-header">
         <h2>Chemistry Lab Workspace (Simulation Mode)</h2>
-        <p>Use Previous/Next to step through the experiment.</p>
+        <p>Right-click an apparatus for details.</p>
       </div>
       <div className="lab-bench">
         <div className="lab-items">

@@ -6,44 +6,40 @@
   justify-content: center;
   padding: 20px;
   position: relative;
-
-  /* Background Image */
   background: url('../assets/images/lab-background.jpg') no-repeat center center fixed;
   background-size: cover;
 }
 
-/* Header text over background */
 .workspace-header {
   width: 100%;
   text-align: center;
   position: absolute;
-  top: 5px; /* Move text further up */
+  top: 5px;
   left: 50%;
   transform: translateX(-50%);
-  color: crimson; /* Softer white color for readability */
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
-  font-size: 1.2em; /* Reduced font size */
-  font-weight: normal; /* Less bold */
-  background-color: rgba(220, 240, 255, 0.9);
-  
+  color: crimson;
+  text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
+  font-size: 1.2em;
+  font-weight: normal;
+  background-color: rgba(220,240,255,0.9);
+  padding: 5px 10px;
+  border-radius: 5px;
   z-index: 10;
 }
 
-/* Main workspace */
 .lab-bench {
-  background-color: rgba(255, 255, 255, 0.85);
+  background-color: rgba(255,255,255,0.85);
   border: 1px solid #ccc;
   width: 90%;
   height: 75vh;
   padding: 20px;
   border-radius: 10px;
   position: relative;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
   overflow: auto;
-  margin-top: 80px; /* Adjusted to create space for text */
+  margin-top: 80px;
 }
 
-/* Items container */
 .lab-items {
   display: flex;
   flex-wrap: wrap;
@@ -52,7 +48,6 @@
   margin-top: 20px;
 }
 
-/* Apparatus & Chemicals */
 .lab-item {
   background-color: #f8f8f8;
   padding: 12px;
@@ -63,9 +58,24 @@
   text-align: center;
   font-weight: bold;
   transition: all 0.2s ease-in-out;
+  position: relative;
 }
 
 .lab-item:hover {
   background-color: #e0e0e0;
   transform: scale(1.05);
+}
+
+.item-label {
+  margin-top: 5px;
+  font-size: 0.9em;
+}
+
+.context-menu {
+  position: absolute;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 10px;
+  z-index: 50;
+  border-radius: 4px;
 }

@@ -8,8 +8,8 @@ import experimentsData from './data/experiments.json';
 
 // Mapping for apparatus images
 const apparatusImages = {
-  Beaker: "https://m.media-amazon.com/images/I/61bEbTCHV5L._AC_UF1000,1000_QL80_.jpg",
-  Flask: "https://www.sigmaaldrich.com/deepweb/assets/sigmaaldrich/product/images/207/642/d8e1bdca-bbcc-4545-a7ca-d30498020451/640/d8e1bdca-bbcc-4545-a7ca-d30498020451.jpg",
+  "Beaker": "https://m.media-amazon.com/images/I/61bEbTCHV5L._AC_UF1000,1000_QL80_.jpg",
+  "Flask": "https://www.sigmaaldrich.com/deepweb/assets/sigmaaldrich/product/images/207/642/d8e1bdca-bbcc-4545-a7ca-d30498020451/640/d8e1bdca-bbcc-4545-a7ca-d30498020451.jpg",
   "Bunsen Burner": "https://d2cbg94ubxgsnp.cloudfront.net/Pictures/280xAny/7/9/8/127798_classic-kit-200_tcm18-99904.jpg"
 };
 
@@ -42,27 +42,31 @@ function App() {
   const applyStep = (step) => {
     switch (step.action) {
       case "bringApparatus": {
-        // Create a unique label: e.g. "Beaker-1"
+        // e.g. { appliance: "Beaker", countLabel: 1, color: "#888" }
         const labelCount = step.countLabel || 1;
-        const apparatusLabel = `${step.name}-${labelCount}`;
-        const imageSrc = apparatusImages[step.name] || "https://via.placeholder.com/50";
+        const apparatusType = step.appliance;  // "Beaker", "Flask", etc.
+        const apparatusLabel = `${apparatusType}-${labelCount}`; // e.g. "Beaker-1"
+        
+        // Dictionary lookup for images
+        const imageSrc = apparatusImages[apparatusType] || "https://via.placeholder.com/50";
+
         const newItem = {
           id: Date.now(),
-          name: apparatusLabel,
+          name: apparatusLabel,        // final label in workspace
           imageSrc,
           type: "apparatus",
           chemicals: [],
           properties: {
             position: { x: 50, y: 50 },
-            // Use step.color for border color
             color: step.color || "#aaa"
           }
         };
         setWorkspaceItems(prev => [...prev, newItem]);
         break;
       }
+
       case "addChemical": {
-        // Find the matching apparatus and add chemical to its array
+        // e.g. { apparatusName: "Beaker-1", chemical: "HCl", amount: 50, unit: "ml" }
         setWorkspaceItems(prev =>
           prev.map(item => {
             if (item.name === step.apparatusName) {
@@ -82,21 +86,24 @@ function App() {
         );
         break;
       }
+
       case "mix": {
-        // For mix, you can transform the contents; for demonstration, we simply log mixing.
-        // Optionally, you can change the chemicals array to reflect a reaction.
+        // e.g. { apparatusName: "Beaker-1", color: "#0000ff" }
         console.log(`Mixing contents in ${step.apparatusName}`);
-        // For example, if in Beaker-1 the chemicals are HCl and NaOH, you might want:
         setWorkspaceItems(prev =>
           prev.map(item => {
             if (item.name === step.apparatusName) {
-              // For demonstration: replace all chemicals with a product reaction
+              // Example: replace chemicals with reaction products
               return {
                 ...item,
                 chemicals: [
                   { name: "NaCl", amount: 100, unit: "ml", color: "#ccc" },
                   { name: "H2O", amount: 100, unit: "ml", color: "#9cf" }
-                ]
+                ],
+                properties: {
+                  ...item.properties,
+                  color: step.color || "#0000ff"
+                }
               };
             }
             return item;
@@ -104,6 +111,7 @@ function App() {
         );
         break;
       }
+
       default:
         console.warn("Unknown action:", step.action);
     }
@@ -148,7 +156,11 @@ function App() {
       {/* Experiment selection dropdown */}
       <div className="experiment-selector">
         <label htmlFor="experiment-select">Choose an Experiment: </label>
-        <select id="experiment-select" value={selectedExperimentId} onChange={handleExperimentSelection}>
+        <select
+          id="experiment-select"
+          value={selectedExperimentId}
+          onChange={handleExperimentSelection}
+        >
           <option value="">--Select--</option>
           {experimentsData.experiments.map(exp => (
             <option key={exp.experimentId} value={exp.experimentId}>
